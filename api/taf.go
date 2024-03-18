@@ -1,8 +1,12 @@
 package api
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"log"
+	"net/http"
 	"net/url"
 	"reflect"
 	"strings"
@@ -15,12 +19,57 @@ type Request struct {
 	Date   string
 }
 
-func GetTAF(tafRequest Request) (quest Request, err error) {
+type Cloud struct {
+	Cover string `json:"cover"`
+	Base  int64  `json:"base"`
+	Type  int64  `json:"type"`
+}
+
+// Forecast represents the fcsts object in the JSON.
+type Forecast struct {
+	TimeGroup   int      `json:"timeGroup"`
+	TimeFrom    int64    `json:"timeFrom"`
+	TimeTo      int64    `json:"timeTo"`
+	TimeBec     *string  `json:"timeBec"`
+	FcstChange  *string  `json:"fcstChange"`
+	Probability *int     `json:"probability"`
+	Wdir        int      `json:"wdir"`
+	Wspd        int      `json:"wspd"`
+	Wgst        *int     `json:"wgst"`
+	Visib       string   `json:"visib"`
+	Altim       *string  `json:"altim"`
+	Clouds      []Cloud  `json:"clouds"`
+	IcgTurb     []string `json:"icgTurb"`
+	Temp        []string `json:"temp"`
+}
+
+// Response represents the entire JSON structure.
+type Response struct {
+	TafID         int        `json:"tafId"`
+	IcaoID        string     `json:"icaoId"`
+	DbPopTime     string     `json:"dbPopTime"`
+	BulletinTime  string     `json:"bulletinTime"`
+	IssueTime     string     `json:"issueTime"`
+	ValidTimeFrom int64      `json:"validTimeFrom"`
+	ValidTimeTo   int64      `json:"validTimeTo"`
+	RawTAF        string     `json:"rawTAF"`
+	MostRecent    int        `json:"mostRecent"`
+	Remarks       string     `json:"remarks"`
+	Lat           float64    `json:"lat"`
+	Lon           float64    `json:"lon"`
+	Elev          int        `json:"elev"`
+	Prior         int        `json:"prior"`
+	Name          string     `json:"name"`
+	Fcsts         []Forecast `json:"fcsts"`
+	RawOb         string     `json:"rawOb"`
+}
+
+func GetTAF(tafRequest Request) (jsonData []Response, err error) {
 	// Validate the struct with reflection
 	inputType := reflect.TypeOf(tafRequest)
 
 	if inputType.Kind() != reflect.Struct {
-		return tafRequest, errors.New("GetTAF func needs struct as input")
+		return jsonData, errors.New("GetTAF func needs struct as input")
 	}
 
 	structVal := reflect.ValueOf(tafRequest)
@@ -39,7 +88,9 @@ func GetTAF(tafRequest Request) (quest Request, err error) {
 
 	}
 
-	baseURL := "https://aviationweather.gov/data/api/taf"
+	// TODO: Could probably abstract the URL generation into a separate function.
+	// Might need several different structs for each different API request
+	baseURL := "https://aviationweather.gov/api/data/taf"
 
 	params := url.Values{}
 
@@ -52,9 +103,25 @@ func GetTAF(tafRequest Request) (quest Request, err error) {
 
 	finalURL := baseURL + "?" + params.Encode()
 
-	// response, err := http.Get(finalURL)
+	httpRes, err := http.Get(finalURL)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	fmt.Println(finalURL)
+	body, err := io.ReadAll(httpRes.Body)
+	httpRes.Body.Close()
 
-	return tafRequest, err
+	if httpRes.StatusCode > 209 {
+		log.Fatalf("Response failed with status code: %d and\nbody: %s\n", httpRes.StatusCode, body)
+	}
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = json.Unmarshal(body, &jsonData)
+	if err != nil {
+		fmt.Println("error:", err)
+	}
+
+	return jsonData, err
 }
