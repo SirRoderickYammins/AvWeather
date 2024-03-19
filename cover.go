@@ -23,7 +23,7 @@ const logo = `
 
 const (
 	subtitle   = `GoBrief! - The Pilot's Terminal Weather Briefing System`
-	navigation = `[yellow]Ctrl-N[-]: Next slide    [yellow]Ctrl-P[-]: Previous slide    [yellow]Ctrl-C[-]: Exit`
+	navigation = `[yellow]Ctrl-N[-]: Next Page [yellow]Ctrl-P[-]: Previous Page [yellow]Ctrl-C[-]: Exit`
 	mouse      = `(or use your mouse)`
 )
 
