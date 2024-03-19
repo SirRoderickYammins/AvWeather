@@ -10,12 +10,16 @@ import (
 
 type Slide func(nextSlide func()) (title string, content tview.Primitive)
 
+const version = `Version [green]1.0`
+
 var app = tview.NewApplication()
 
 func main() {
 	// The presentation slides.
 	slides := []Slide{
 		Cover,
+		Dashboard,
+		Profile,
 	}
 
 	pages := tview.NewPages()
@@ -47,7 +51,8 @@ func main() {
 		pages.AddPage(strconv.Itoa(index), primitive, true, index == 0)
 		fmt.Fprintf(info, `%d ["%d"][darkcyan]%s[white][""]  `, index+1, index, title)
 	}
-	info.Highlight("0")
+	info.Highlight("0").
+		SetBackgroundColor(tcell.Color16)
 
 	// Create the main layout.
 	layout := tview.NewFlex().
@@ -66,6 +71,8 @@ func main() {
 		}
 		return event
 	})
+
+	layout.SetBackgroundColor(tcell.Color16)
 
 	// Start the application.
 	if err := app.SetRoot(layout, true).EnableMouse(true).EnablePaste(true).Run(); err != nil {
