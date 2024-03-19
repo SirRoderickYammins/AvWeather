@@ -14,7 +14,21 @@ const version = `Version [green]1.0`
 
 var app = tview.NewApplication()
 
+var layout = tview.NewFlex()
+
 func main() {
+	// ui stylepageSettings
+	tview.Styles.PrimitiveBackgroundColor = tcell.Color16
+	tview.Styles.ContrastBackgroundColor = tcell.ColorRoyalBlue
+	tview.Styles.MoreContrastBackgroundColor = tcell.ColorOrange
+	tview.Styles.BorderColor = tcell.ColorRoyalBlue
+	tview.Styles.TitleColor = tcell.ColorRoyalBlue
+	tview.Styles.GraphicsColor = tcell.ColorRoyalBlue
+	tview.Styles.PrimaryTextColor = tcell.ColorWhite
+	tview.Styles.SecondaryTextColor = tcell.ColorOrange
+	tview.Styles.TertiaryTextColor = tcell.ColorHotPink
+	tview.Styles.InverseTextColor = tcell.ColorLemonChiffon
+	tview.Styles.ContrastSecondaryTextColor = tcell.ColorPeachPuff
 	// The presentation slides.
 	slides := []Slide{
 		Cover,
@@ -49,13 +63,12 @@ func main() {
 	for index, slide := range slides {
 		title, primitive := slide(nextSlide)
 		pages.AddPage(strconv.Itoa(index), primitive, true, index == 0)
-		fmt.Fprintf(info, `%d ["%d"][darkcyan]%s[white][""]  `, index+1, index, title)
+		fmt.Fprintf(info, `%d ["%d"][blue]%s[magenta][""]  `, index+1, index, title)
 	}
-	info.Highlight("0").
-		SetBackgroundColor(tcell.Color16)
+	info.Highlight("0")
 
 	// Create the main layout.
-	layout := tview.NewFlex().
+	layout.
 		SetDirection(tview.FlexRow).
 		AddItem(pages, 0, 1, true).
 		AddItem(info, 1, 1, false)
