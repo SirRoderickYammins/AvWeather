@@ -1,8 +1,15 @@
-# GoBrief!
-
 ---
 
-GoBrief! is an application that interfaces with the NOAA's official website [aviationweather.gov]
+|\ \_**\_\|\ ** \|\ ** \|\ ** \|\ \|\ **\_ \ |\ \_\_\_**\\ \
+\ \ \_**|\ \ \|\ \ \ \|\ /\ \ \|\ \ \ \ \ **/|\ \ \__/\ \ \
+ \ \ \ **\ \ \\\ \ \ ** \ \ _ _\ \ \ \ \_|/_\ \ **\\ \ \
+ \ \ \|\ \ \ \\\ \ \ \|\ \ \ \\ \\ \ \ \ \_|\ \ \ \_| \ \_\_\
+ \ \_\_\_\_\_**\ \_**\_\_**\ \_**\_\_**\ \__\\ _\\ \_\_\ \_**\_\_**\ \_\_\ \|**|
+\|**\_****|\|**\_\_\_**|\|**\_\_\_**|\|**|\|**|\|**|\|**\_****|\|**| \_**
+|\_\_\
+ \|\_\_|
+
+GoBrief! is an application that interfaces with the NOAA's official website aviationweather.gov
 
 ## Rationale
 
