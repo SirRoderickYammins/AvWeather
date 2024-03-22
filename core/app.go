@@ -25,7 +25,8 @@ type GoBrief struct {
 func defaultTheme() {
 	tview.Styles.PrimitiveBackgroundColor = tcell.Color16
 	tview.Styles.BorderColor = tcell.ColorGrey
-	tview.Styles.ContrastBackgroundColor = tcell.Color16
+	tview.Styles.ContrastBackgroundColor = tcell.ColorBlue
+	tview.Styles.MoreContrastBackgroundColor = tcell.Color100
 }
 
 // Initialize the main application
