@@ -86,6 +86,7 @@ func ShowSplashScreen() {
 				ShowMainPage()
 			}
 		}
+
 		return event
 	})
 }

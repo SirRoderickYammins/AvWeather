@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 	"github.com/xpndrobserved/gobrief/core"
 )
@@ -10,19 +11,25 @@ type MainPage struct {
 	Grid *tview.Grid
 }
 
-// Set up the main page. Return pointer to MainPage to keep
-// struct's lifetime beyond function scope
+var sampleText = "hello"
+
+// Set up the main page.
 func createMainPage() *MainPage {
-	grid := tview.NewGrid().
-		SetRows(3, 0, 3).
-		SetColumns(30, 0, 30)
+	grid := tview.NewGrid()
 
 	menuItemList := tview.NewList().
-		AddItem("Briefings", "Get Your Personalized Weather Briefing", rune(42), nil).
+		AddItem("Briefings", "Get Your Personalized Weather Briefing", rune(42), showModal).
 		AddItem("IDK", "", rune(42), nil)
 
+	homeWeatherFrame := tview.NewFrame(tview.NewBox().
+		SetBorder(true).
+		SetTitle(sampleText + " Weather and Forecast").
+		SetTitleColor(tcell.ColorBlue))
+
 	flex := tview.NewFlex().
-		AddItem(menuItemList, 0, 1, true)
+		SetDirection(tview.FlexRow).
+		AddItem(menuItemList, 0, 1, true).
+		AddItem(homeWeatherFrame, 0, 1, false)
 
 	grid.AddItem(flex, 0, 0, 5, 5, 0, 0, true).
 		SetTitle("Dashboard").
