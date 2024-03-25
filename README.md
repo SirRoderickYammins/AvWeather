@@ -9,7 +9,7 @@
                                                                       |\__\
                                                                       \|__|
 ```
-
+[![Go](https://github.com/xpndrobserved/GoBrief/actions/workflows/go.yml/badge.svg)](https://github.com/xpndrobserved/GoBrief/actions/workflows/go.yml)
 GoBrief! is an application that interfaces with the NOAA's official website aviationweather.gov
 
 ## Rationale
