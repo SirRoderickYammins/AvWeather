@@ -26,7 +26,7 @@ func defaultTheme() {
 	tview.Styles.PrimitiveBackgroundColor = tcell.Color16
 	tview.Styles.BorderColor = tcell.ColorGrey
 	tview.Styles.ContrastBackgroundColor = tcell.ColorBlue
-	tview.Styles.MoreContrastBackgroundColor = tcell.Color100
+	tview.Styles.MoreContrastBackgroundColor = tcell.Color16
 }
 
 // Initialize the main application

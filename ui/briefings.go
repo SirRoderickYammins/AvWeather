@@ -9,6 +9,9 @@ func errorHandler(buttonIndex int, _ string) {
 	if buttonIndex == 0 {
 		ShowMainPage()
 	}
+	if buttonIndex == 1 {
+		ShowPilotProfilePage()
+	}
 }
 
 func showModal() {

@@ -123,5 +123,6 @@ func GetTAF(tafRequest Request) (jsonData []Response, err error) {
 		fmt.Println("error:", err)
 	}
 
+	fmt.Printf("%+v", jsonData[0].IcaoID)
 	return jsonData, err
 }
