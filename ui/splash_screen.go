@@ -62,7 +62,9 @@ func createSplashScreen() *SplashScreen {
 			AddItem(tview.NewBox(), 0, 1, false), logoHeight, 1, true).
 		AddItem(frame, 0, 10, false)
 
-		// Instantiate the SplashScreen struct for page rendering.
+	flex.SetBackgroundColor(tcell.Color16)
+
+	// Instantiate the SplashScreen struct for page rendering.
 	splashScreen := SplashScreen{
 		Flex: flex,
 	}
@@ -75,7 +77,7 @@ func createSplashScreen() *SplashScreen {
 func ShowSplashScreen() {
 	splashScreen := createSplashScreen()
 
-	core.App.TView.SetFocus(splashScreen.Flex)
+	core.App.TView.SetFocus(splashScreen.Flex.SetBackgroundColor(tcell.Color16))
 	core.App.PageHolder.AddAndSwitchToPage("splashscreen", splashScreen.Flex, true)
 	core.App.PageName = "splashScreen"
 
